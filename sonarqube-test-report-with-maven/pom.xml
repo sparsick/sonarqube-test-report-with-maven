@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.parsick.sandra.sonarqube</groupId>
+    <groupId>com.github.sparsick.sonarqube</groupId>
     <artifactId>sonarqube-test-report-with-maven</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -10,14 +10,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
 
-        <!-- sonar properties -->
-        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>  
-        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>  
-        <sonar.language>java</sonar.language>  
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>  
-        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+<!--        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>  -->
+<!--        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>  -->
+<!--        <sonar.language>java</sonar.language>  -->
+<!--        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>  -->
+<!--        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>-->
     </properties>
   
     <build>
@@ -26,7 +25,7 @@
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.7.0.1746</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -34,7 +33,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -43,7 +42,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>add-test-source</id>
@@ -76,12 +75,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.17</version>
+                <version>3.0.0-M4</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0-M4</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -99,30 +98,16 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>  
+                <version>0.8.5</version>
                 <executions>    
-                    <execution>  
-                        <configuration>  
-                            <destFile>${sonar.jacoco.reportPath}</destFile>  
-                        </configuration>  
-                        <id>pre-test</id>
-                        <phase>process-test-classes</phase>  
+                    <execution>
                         <goals>  
-                            <goal>prepare-agent</goal>  
+                            <goal>prepare-agent</goal>
+                            <goal>prepare-agent-integration</goal>
+                            <goal>report</goal>
+                            <goal>report-integration</goal>
                         </goals>  
-                    </execution>  
-                    <!-- we want to execute jacoco:prepare-agent-integration in test phase,  
-                    but before executing maven failsafe plugin -->  
-                    <execution>  
-                        <configuration>  
-                            <destFile>${sonar.jacoco.itReportPath}</destFile>  
-                        </configuration>  
-                        <id>pre-itest</id>
-                        <phase>pre-integration-test</phase>  
-                        <goals>  
-                            <goal>prepare-agent-integration</goal>  
-                        </goals>  
-                    </execution>  
+                    </execution>
                 </executions>  
             </plugin>
         </plugins>
@@ -131,9 +116,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
