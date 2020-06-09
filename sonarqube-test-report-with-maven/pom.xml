@@ -11,12 +11,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-
-<!--        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>  -->
-<!--        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>  -->
-<!--        <sonar.language>java</sonar.language>  -->
-<!--        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>  -->
-<!--        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>-->
     </properties>
   
     <build>
@@ -45,24 +39,14 @@
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>add-test-source</id>
-                        <phase>process-test-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
+                            <goal>add-test-resource</goal>
                         </goals>
                         <configuration>
                             <sources>
                                 <source>src/it/java</source>
                             </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add-test-resources</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>add-test-resource</goal>
-                        </goals>
-                        <configuration>
                             <resources>
                                 <resource>
                                     <directory>src/it/resources</directory>
@@ -86,8 +70,6 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>failsafe-integration-tests</id>
-                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
                             <goal>verify</goal>
